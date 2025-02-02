@@ -1,7 +1,7 @@
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
-import CandlestickChart from "@/components/CandlestickChart";
+import MarketChart from "@/components/MarketChart";
 import TradeAnalysis from "@/components/TradeAnalysis";
 
 const mockRecommendations = [
@@ -93,7 +93,7 @@ const Index = () => {
             ))}
           </div>
           
-          <CandlestickChart 
+          <MarketChart 
             market={selectedMarket} 
             timeframe={selectedTimeframe}
           />
