@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import CandlestickChart from "@/components/CandlestickChart";
+import TradeAnalysis from "@/components/TradeAnalysis";
 
 const markets = [
   { id: "us30", name: "US30", companies: ["Boeing", "Apple", "Microsoft", "Goldman Sachs"] },
@@ -99,27 +101,38 @@ const Advanced = () => {
         </Card>
 
         {selectedMarket && selectedCompanies.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Analysis Results</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {selectedCompanies.map((company) => (
-                  <div key={company} className="border-b pb-4">
-                    <h3 className="font-semibold mb-2">{company}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Impact analysis for {selectedTimeframe} timeframe:
-                      {/* Mock analysis result */}
-                      {Math.random() > 0.5 ? 
-                        " Positive impact expected with 78% confidence" : 
-                        " Negative impact expected with 65% confidence"}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <>
+            <CandlestickChart 
+              market={currentMarket.name} 
+              timeframe={selectedTimeframe}
+            />
+            
+            <TradeAnalysis 
+              market={currentMarket.name} 
+              timeframe={selectedTimeframe}
+            />
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Analysis Results</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {selectedCompanies.map((company) => (
+                    <div key={company} className="border-b pb-4">
+                      <h3 className="font-semibold mb-2">{company}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Impact analysis for {selectedTimeframe} timeframe:
+                        {Math.random() > 0.5 ? 
+                          " Positive impact expected with 78% confidence" : 
+                          " Negative impact expected with 65% confidence"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </>
         )}
       </div>
     </div>

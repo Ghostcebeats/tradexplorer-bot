@@ -1,5 +1,8 @@
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useState } from "react";
+import CandlestickChart from "@/components/CandlestickChart";
+import TradeAnalysis from "@/components/TradeAnalysis";
 
 const mockRecommendations = [
   {
@@ -34,14 +37,23 @@ const mockRecommendations = [
   },
 ];
 
+const timeframes = ["5min", "30min", "1hour"];
+
 const Index = () => {
+  const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
+  const [selectedTimeframe, setSelectedTimeframe] = useState("5min");
+
   return (
     <div className="min-h-screen bg-background text-foreground p-4 pb-20">
       <h1 className="text-2xl font-bold mb-6">Easy Mode Trading</h1>
       
       <div className="space-y-4">
         {mockRecommendations.map((rec, index) => (
-          <Card key={index} className="p-4 bg-secondary animate-fade-in">
+          <Card 
+            key={index} 
+            className="p-4 bg-secondary animate-fade-in cursor-pointer hover:bg-secondary/80 transition-colors"
+            onClick={() => setSelectedMarket(rec.market)}
+          >
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="text-lg font-semibold">{rec.market}</h3>
@@ -62,6 +74,36 @@ const Index = () => {
           </Card>
         ))}
       </div>
+
+      {selectedMarket && (
+        <div className="mt-6 space-y-4">
+          <div className="flex gap-2 mb-4">
+            {timeframes.map((timeframe) => (
+              <button
+                key={timeframe}
+                onClick={() => setSelectedTimeframe(timeframe)}
+                className={`px-4 py-2 rounded ${
+                  selectedTimeframe === timeframe
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-secondary text-secondary-foreground"
+                }`}
+              >
+                {timeframe}
+              </button>
+            ))}
+          </div>
+          
+          <CandlestickChart 
+            market={selectedMarket} 
+            timeframe={selectedTimeframe}
+          />
+          
+          <TradeAnalysis 
+            market={selectedMarket} 
+            timeframe={selectedTimeframe}
+          />
+        </div>
+      )}
     </div>
   );
 };
