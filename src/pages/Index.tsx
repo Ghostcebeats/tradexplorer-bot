@@ -14,6 +14,24 @@ const mockRecommendations = [
     price: "2,156.30",
     confidence: 92,
   },
+  {
+    market: "NASDAQ",
+    action: "BUY",
+    price: "16,248.75",
+    confidence: 85,
+  },
+  {
+    market: "US100",
+    action: "SELL",
+    price: "17,891.20",
+    confidence: 89,
+  },
+  {
+    market: "USD/EUR",
+    action: "BUY",
+    price: "1.0845",
+    confidence: 83,
+  },
 ];
 
 const Index = () => {
