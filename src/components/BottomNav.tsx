@@ -58,7 +58,8 @@ const BottomNav = () => {
                 src="https://www.mintme.com/token/Epic/airdrop/7855/embeded"
                 className="w-full h-[300px]"
                 style={{ border: "none" }}
-                scrolling="no"
+                allow="clipboard-write"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                 title="mintme-frame"
               />
             </div>
@@ -71,8 +72,9 @@ const BottomNav = () => {
                 src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.html?locale=en#%7B%22symbol%22%3A%22NASDAQ%3AAAPL%22%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22dateRange%22%3A%221D%22%2C%22colorTheme%22%3A%22dark%22%2C%22trendLineColor%22%3A%2200FF88%22%2C%22underLineColor%22%3A%22rgba(0%2C%20255%2C%20136%2C%200.15)%22%2C%22underLineBottomColor%22%3A%22rgba(0%2C%20255%2C%20136%2C%200.15)%22%2C%22isTransparent%22%3Atrue%2C%22autosize%22%3Atrue%2C%22largeChartUrl%22%3A%22%22%7D"
                 style={{ width: "100%", height: "100%" }}
                 frameBorder="0"
-                allowTransparency={true}
-              ></iframe>
+                allow="clipboard-write"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+              />
             </div>
           </Card>
         </div>
