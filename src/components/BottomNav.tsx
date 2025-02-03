@@ -51,6 +51,11 @@ const BottomNav = () => {
     setTimeLeft(60);
   };
 
+  const handleIframeError = (e: React.SyntheticEvent<HTMLIFrameElement, Event>) => {
+    console.error("Iframe loading error:", e);
+    setShowPreview(false);
+  };
+
   return (
     <>
       {showPreview && (
@@ -78,6 +83,8 @@ const BottomNav = () => {
                 allow="clipboard-write"
                 sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                 title="mintme-frame"
+                onError={handleIframeError}
+                crossOrigin="anonymous"
               />
             </div>
           </Card>
@@ -91,6 +98,8 @@ const BottomNav = () => {
                 frameBorder="0"
                 allow="clipboard-write"
                 sandbox="allow-scripts allow-same-origin allow-popups"
+                onError={handleIframeError}
+                crossOrigin="anonymous"
               />
             </div>
           </Card>
