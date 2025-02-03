@@ -1,12 +1,13 @@
-import { Home, LineChart, Newspaper, User } from "lucide-react";
+import { Home, LineChart, Newspaper, User, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const BottomNav = () => {
   const location = useLocation();
   const [showPreview, setShowPreview] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(60); // 60 seconds countdown
+  const [timeLeft, setTimeLeft] = useState(60);
   
   const isActive = (path: string) => location.pathname === path;
   
@@ -20,8 +21,8 @@ const BottomNav = () => {
   useEffect(() => {
     const showInterval = setInterval(() => {
       setShowPreview(true);
-      setTimeLeft(60); // Reset timer to 60 seconds
-    }, 30000); // Show every 30 seconds
+      setTimeLeft(60);
+    }, 30000);
 
     return () => clearInterval(showInterval);
   }, []);
@@ -45,14 +46,30 @@ const BottomNav = () => {
     };
   }, [showPreview, timeLeft]);
 
+  const handleSkip = () => {
+    setShowPreview(false);
+    setTimeLeft(60);
+  };
+
   return (
     <>
       {showPreview && (
         <div className="fixed bottom-16 left-0 right-0 animate-slide-up">
           <Card className="mx-4 mb-2 bg-secondary p-2">
             <div className="relative">
-              <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm">
-                {timeLeft}s
+              <div className="absolute top-2 right-2 flex items-center gap-2">
+                <span className="bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm">
+                  {timeLeft}s
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 w-8 p-0"
+                  onClick={handleSkip}
+                >
+                  <X className="h-4 w-4" />
+                  <span className="sr-only">Skip</span>
+                </Button>
               </div>
               <iframe
                 src="https://www.mintme.com/token/Epic/airdrop/7855/embeded"
