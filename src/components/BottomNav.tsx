@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 const BottomNav = () => {
   const location = useLocation();
   const [showPreview, setShowPreview] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(60); // 60 seconds countdown
   
   const isActive = (path: string) => location.pathname === path;
   
@@ -17,18 +18,51 @@ const BottomNav = () => {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const showInterval = setInterval(() => {
       setShowPreview(true);
-      setTimeout(() => setShowPreview(false), 5000); // Hide after 5 seconds
-    }, 20000); // Show every 20 seconds
+      setTimeLeft(60); // Reset timer to 60 seconds
+    }, 30000); // Show every 30 seconds
 
-    return () => clearInterval(interval);
+    return () => clearInterval(showInterval);
   }, []);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showPreview && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            setShowPreview(false);
+            return 60;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [showPreview, timeLeft]);
 
   return (
     <>
       {showPreview && (
         <div className="fixed bottom-16 left-0 right-0 animate-slide-up">
+          <Card className="mx-4 mb-2 bg-secondary p-2">
+            <div className="relative">
+              <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded-full text-sm">
+                {timeLeft}s
+              </div>
+              <iframe
+                src="https://www.mintme.com/token/Epic/airdrop/7855/embeded"
+                className="w-full h-[300px]"
+                style={{ border: "none" }}
+                scrolling="no"
+                title="mintme-frame"
+              />
+            </div>
+          </Card>
           <Card className="mx-4 mb-2 bg-secondary p-2 h-[100px]">
             <div className="tradingview-widget-container">
               <div className="tradingview-widget-container__widget"></div>
